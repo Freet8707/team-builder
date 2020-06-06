@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Route } from 'react-router-dom';
-import Form from './Components/Form'
+import Form from './Components/Form';
+import TeamRender from './Components/TeamRender'
 import './App.css';
 
 function App() {
@@ -20,6 +21,10 @@ function App() {
       <Link to='/teamMembers'>
         <button>Who's on the team?</button>
       </Link>
+
+      <Route path='/teamMembers' render={() => {
+        return <TeamRender teamMembers={teamMembers} />
+      }} />
     </div>
   );
 }
