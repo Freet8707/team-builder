@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Form = (props) => {
     const [teamMember, setTeamMember] = useState({name: 'Enter Name', email: 'Enter Email', role: 'Enter Team Member Role'})
     const spaceSetter = ' '
     
-    const addNewMember = props.setTeamMembers()
+    // const addNewMember = props.newMember()
 
     const handleChanges = event => {
         setTeamMember({...teamMember, [event.target.name]: event.target.value})
     }
-    
-    useEffect(() => {
-        console.log(teamMember)
-    }, [teamMember])
+
+    const submitForm = event => {
+        event.preventDefault()
+        props.newMember(teamMember)
+        setTeamMember({name: "Enter Name", email: "Enter Email", role: "Enter Team Member Role"})
+    }
     
     return(
         <div>
             <h2>Enter new team member information!</h2>
-            <form>
+            <form onSubmit={submitForm}>
                 <label htmlFor='nameInput'>Name:{spaceSetter}
                     <input type='text' id='nameInput' name='name' value={teamMember.name} onChange={handleChanges}/>
                 </label><br />
@@ -26,7 +28,9 @@ const Form = (props) => {
                 </label><br />
                 <label htmlFor='roleInput'>Role:{spaceSetter}
                     <input type='text' id='roleInput' name='role' value={teamMember.role} onChange={handleChanges}/>                     
-                </label>
+                </label><br />
+
+                <button type='submit'>Submit Team Member Information</button>
             </form>
         </div>
     )
