@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import Form from './Components/Form';
 import TeamRender from './Components/TeamRender'
 import './App.css';
@@ -17,14 +17,21 @@ function App() {
   
   return (
     <div className="App">
-      <Form teamMembers={teamMembers} newMember={addNewMember} />
-      <Link to='/teamMembers'>
+      <Link to='/forms'>
+        <button>Add New Team Member</button>
+      </Link><br />      
+      <Link to='/forms/teamMembers'>
         <button>Who's on the team?</button>
       </Link>
-
-      <Route path='/teamMembers' render={() => {
-        return <TeamRender teamMembers={teamMembers} />
-      }} />
+      <Switch> 
+        <Route path='/forms/teamMembers' render={() => {
+          return <TeamRender teamMembers={teamMembers} />
+        }} />
+        <Route path='/forms' render={() => {
+          return <Form teamMembers={teamMembers} newMember={addNewMember} />
+        }} />
+      </Switch>
+      
     </div>
   );
 }
